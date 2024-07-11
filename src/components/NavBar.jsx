@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react-refresh/only-export-components */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ModeToggle } from './ModeToggle';
@@ -8,15 +10,11 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <nav className="w-screen bg-none shadow-sm py-4 px-6 flex items-center justify-between dark:bg-primary">
       <div className="text-2xl font-bold">
-        <Link to="/">Event Platform</Link>
+        <Link to="/">Home Page</Link>
       </div>
 
       <div className="flex items-center space-x-1">
-        <Input
-          type="text"
-          placeholder="Search events"
-          className="px-4 py-2"
-        />
+        <Input type="text" placeholder="Search events" className="px-4 py-2" />
         <Input
           type="text"
           placeholder="Current location"
@@ -41,19 +39,16 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             </Link>
           </>
         ) : (
-          <div className="relative">
-            <Button variant="solid" color="primary" className="relative z-10">
-              User Menu
+            <>
+          <div className="mt-0">
+            <Button
+              onClick={() => setIsLoggedIn(false)}
+              className="px-2 dark:bg-secondary"
+            >
+              Log Out
             </Button>
-            <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-20">
-              <button
-                onClick={() => setIsLoggedIn(false)}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-              >
-                Log Out
-              </button>
-            </div>
           </div>
+          </>
         )}
       </div>
       <ModeToggle />
