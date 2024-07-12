@@ -7,9 +7,11 @@ import { Input } from './ui/input';
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
-    <nav className="w-screen bg-none shadow-sm py-4 px-6 flex items-center justify-between dark:bg-primary">
+    <nav className="w-screen bg-none shadow-sm py-4 px-6 flex items-center justify-between">
       <div className="text-2xl font-bold">
-        <Link to="/">Home Page</Link>
+        <Link to="/">
+            <img src="assets/Eventsphere_red_nobg.png" alt="EventSphere logo" className="h-16 w-auto" />
+        </Link>
       </div>
 
       <div className="flex items-center space-x-1">
@@ -24,16 +26,16 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         </Button>
       </div>
 
-      <div className="flex space-x-4 items-center">
-        <Link to="/create-event" className=" hover:text-gray-900">
+      <div className="flex space-x-4 items-center mr-6">
+        <Link to="/create-event" className="hover:text-primary">
           Create Event
         </Link>
         {!isLoggedIn ? (
           <>
-            <Link to="/signup" className=" hover:text-gray-900">
+            <Link to="/signup" className=" hover:text-primary">
               Sign Up
             </Link>
-            <Link to="/login" className=" hover:text-gray-900">
+            <Link to="/login" className=" hover:text-primary">
               Log In
             </Link>
           </>
@@ -42,7 +44,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
           <div className="mt-0">
             <Button
               onClick={() => setIsLoggedIn(false)}
-              className="px-2 dark:bg-secondary"
+              className="px-2 dark:bg-primary"
             >
               Log Out
             </Button>
