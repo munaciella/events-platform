@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ModeToggle } from './ModeToggle';
 import { Button } from './ui/button';
