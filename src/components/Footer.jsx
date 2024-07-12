@@ -3,7 +3,7 @@ import { FaXTwitter, FaThreads } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
-    <footer className="w-full flex flex-col md:flex-row justify-between items-center py-3 md:py-6 px-4 mt-20 md:mb-2 absolute bottom-0">
+    <footer className="w-full flex flex-col md:flex-row justify-between items-center py-3 md:py-6 px-4 mt-20 md:mb-2 relative bottom-0">
       <div className="w-full md:w-auto text-center md:text-left md:flex md:items-center md:justify-start mb-4 md:mb-0">
         <h4 className="text-primary md:ml-4">
           &copy; {new Date().getFullYear()} EventSphere
