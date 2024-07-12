@@ -10,7 +10,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
     <nav className="w-screen bg-none shadow-sm py-4 px-6 flex items-center justify-between">
       <div className="text-2xl font-bold">
         <Link to="/">
-            <img src="assets/Eventsphere_red_nobg.png" alt="EventSphere logo" className="h-16 w-auto" />
+            <img src="assets/Eventsphere_red_nobg.png" alt="EventSphere logo" className="h-16 w-auto ml-3" />
         </Link>
       </div>
 
