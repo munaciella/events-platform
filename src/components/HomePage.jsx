@@ -17,11 +17,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 items-center justify-center min-h-screen py-2">
+    <div className="p-2">
       <h1>Hero Section Here</h1>
       <ul>
         {data.map(item => (
-          <li key={item.id}>{item.title} {item.description} {item.location} {item.start_time}</li>
+          <div key={item.id}>
+            <img src={item.image_url} alt={item.title} />
+            <li>{item.title} {item.description} {item.location} {item.start_time}</li>
+          </div>
         ))}
       </ul>
     </div>
