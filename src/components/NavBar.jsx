@@ -52,7 +52,9 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
           </>
         )}
       </div>
+      <div className="mr-8">
       <ModeToggle />
+      </div>
     </nav>
   );
 };
