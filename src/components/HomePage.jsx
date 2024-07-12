@@ -17,17 +17,21 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-2">
+    <section className="flex flex-col items-center p-4">
       <h1>Hero Section Here</h1>
-      <ul>
+      <div className='grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-6'>
         {data.map(item => (
-          <div key={item.id}>
-            <img src={item.image_url} alt={item.title} />
-            <li>{item.title} {item.description} {item.location} {item.start_time}</li>
+          <div key={item.id} >
+              <div className="w-full rounded-lg overflow-hidden shadow-lg">
+                <img src={item.image_url} alt={item.title} className="w-full h-full object-cover"/>
+              </div>
+              <div className="flex flex-col">
+                <span>{item.title} {item.description} {item.location} {item.start_time}</span>
+            </div>
           </div>
         ))}
-      </ul>
-    </div>
+        </div>
+    </section>
   );
 };
 
