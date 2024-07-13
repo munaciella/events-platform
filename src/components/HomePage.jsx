@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { format } from 'date-fns';
+import { SkeletonCard } from './ui/SkeletonCard';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -34,13 +36,22 @@ const Home = () => {
     <section className="flex flex-col items-center p-4">
       <h1 className="text-3xl font-bold mb-6">Hero Section Here</h1>
 
-      {loading && <p>Loading...</p>} 
+      {loading && (
+        <div className='grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-6'>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      )}
+      
       {error && <p className="text-red-500">{error}</p>} 
 
       <div className='grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-6'>
         {!loading && !error && data.map(item => (
           <div key={item.id} className="w-full rounded-lg overflow-hidden shadow-lg mt-8">
+          <Link to={`/event/${item.event_id}`}>
             <img src={item.image_url} alt={item.title} className="w-full object-cover h-96" />
+            </Link>
             <div className="flex flex-col items-center p-4">
               <h2 className="text-2xl font-semibold mb-2">{item.title}</h2>
               <p className="text-lg mb-2">{item.description}</p>
