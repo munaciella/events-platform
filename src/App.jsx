@@ -9,6 +9,7 @@ import CreateEvent from './components/CreateEvent';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import { Footer } from './components/Footer';
+import { EventPage } from './components/EventPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,9 +35,10 @@ function App() {
               path="/login"
               element={<LogIn setIsLoggedIn={setIsLoggedIn} />}
             />
+            <Route path="/event/:event_id" element={<EventPage />} />
           </Routes>
         </ThemeProvider>
-          <Footer />
+        <Footer />
       </div>
     </Router>
   );
