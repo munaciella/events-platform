@@ -9,7 +9,7 @@ import CreateEvent from './components/CreateEvent';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import { Footer } from './components/Footer';
-import { EventPage } from './components/EventPage';
+import EventPage from './components/EventPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
