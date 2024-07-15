@@ -1,26 +1,74 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
+import { useState } from 'react';
+import { supabase } from '../../supabaseClient';
+import { Input } from './ui/input';
+import { useSupabaseAuth } from './AuthContext';
+import { useToast } from './ui/use-toast';
 
-const LogIn = ({ setIsLoggedIn }) => {
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { setSession } = useSupabaseAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleLogin = () => {
-    // TODO Simulate a login process
-    setIsLoggedIn(true);
-    navigate('/');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      console.error('Error during sign in:', error.message);
+    } else {
+      setSession(data.session);
+      toast({
+        title: 'Login successful',
+        description: `Welcome back, ${data.user.email}`,
+      });
+      navigate('/');
+    }
+  };
+
+  const handleLoginGoogle = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) {
+      console.error('Error during sign in:', error.message);
+    } else {
+      setSession(data.session);
+      toast({
+        title: 'Login successful',
+        description: `Welcome back, ${data.user.email}`,
+      });
+      navigate('/');
+    }
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      <Button onClick={handleLogin} className="px-4 py-2">
-        Log In
-      </Button>
-    </div>
+    <>
+      <form onSubmit={handleLogin}>
+        <Input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button type="submit">Sign in with Email</Button>
+      </form>
+      <Button onClick={handleLoginGoogle}>Sign in with Google</Button>
+    </>
   );
 };
 
-export default LogIn;
+export default Login;

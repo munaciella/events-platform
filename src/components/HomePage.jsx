@@ -67,9 +67,10 @@ const Home = () => {
                 <h2 className="text-2xl font-semibold mb-2">{item.title}</h2>
                 <p className="text-lg mb-2">{item.description}</p>
                 <p className="text-md mb-2">{item.location}</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-2">
                   {formatDate(item.start_time)}
                 </p>
+                  <p className="text-sm text-muted-foreground">£{item.price}</p>
               </div>
             </div>
           ))}
