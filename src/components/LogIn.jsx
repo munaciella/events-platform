@@ -2,36 +2,67 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
-//import { signInWithGoogle } from '../../supabaseClient';
+import { useState } from 'react';
+import { supabase } from '../../supabaseClient';
+import { Input } from './ui/input';
+import { useSupabaseAuth } from './AuthContext';
 
-// const LogIn = () => {
-//   return (
-//     <div className="flex flex-col items-center p-4">
-//       <h1 className="text-3xl font-bold mb-6">Log In</h1>
-//      <Button onClick={signInWithGoogle} className="px-4 py-2">
-//      Log In
-//      </Button>
-//      </div>
-//      );
-//     }
-
-const LogIn = ({ setIsLoggedIn }) => {
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { setSession } = useSupabaseAuth();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // TODO Simulate a login process
-    setIsLoggedIn(true);
-    navigate('/');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      console.error('Error during sign in:', error.message);
+    } else {
+      setSession(data.session);
+      toast({
+        title: 'Login successful',
+        description: `Welcome back, ${data.user.email}`,
+      });
+      navigate('/');
+    }
+  };
+
+  const handleLoginGoogle = async () => {
+    const { user, session, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) {
+      console.error('Error during sign in:', error.message);
+    } else {
+      setSession(session);
+      navigate('/');
+    }
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      <Button onClick={handleLogin} className="px-4 py-2">
-        Log In
-      </Button>
-    </div>
+    <>
+      <form onSubmit={handleLogin}>
+        <Input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button type="submit">Sign in with Email</Button>
+      </form>
+      <Button onClick={handleLoginGoogle}>Sign in with Google</Button>
+    </>
   );
 };
 
-export default LogIn;
+export default Login;

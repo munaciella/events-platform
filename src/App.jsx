@@ -10,9 +10,11 @@ import SignUp from './components/SignUp';
 import { Footer } from './components/Footer';
 import EventPage from './components/EventPage';
 import LogIn from './components/LogIn';
+import { useSupabaseAuth } from './components/AuthContext';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { session } = useSupabaseAuth();
 
   return (
     <Router>
