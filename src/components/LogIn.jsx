@@ -6,12 +6,14 @@ import { useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { Input } from './ui/input';
 import { useSupabaseAuth } from './AuthContext';
+import { useToast } from './ui/use-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setSession } = useSupabaseAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,13 +34,17 @@ const Login = () => {
   };
 
   const handleLoginGoogle = async () => {
-    const { user, session, error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
     });
     if (error) {
       console.error('Error during sign in:', error.message);
     } else {
-      setSession(session);
+      setSession(data.session);
+      toast({
+        title: 'Login successful',
+        description: `Welcome back, ${data.user.email}`,
+      });
       navigate('/');
     }
   };
