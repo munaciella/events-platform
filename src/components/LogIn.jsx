@@ -6,14 +6,15 @@ import { useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { Input } from './ui/input';
 import { useSupabaseAuth } from './AuthContext';
-import { useToast } from './ui/use-toast';
+import Modal from './ui/Modal';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setSession } = useSupabaseAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const [modalMessage, setModalMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,14 +24,15 @@ const Login = () => {
     });
     if (error) {
       console.error('Error during sign in:', error.message);
+      setModalMessage(`Error: ${error.message}`);
     } else {
       setSession(data.session);
-      toast({
-        title: 'Login successful',
-        description: `Welcome back, ${data.user.email}`,
-      });
-      navigate('/');
+      setModalMessage('Successfully logged in');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     }
+    setIsModalOpen(true);
   };
 
   const handleLoginGoogle = async () => {
@@ -39,14 +41,19 @@ const Login = () => {
     });
     if (error) {
       console.error('Error during sign in:', error.message);
+      setModalMessage(`Error: ${error.message}`);
     } else {
       setSession(data.session);
-      toast({
-        title: 'Login successful',
-        description: `Welcome back, ${data.user.email}`,
-      });
-      navigate('/');
+      setModalMessage('Successfully logged in');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     }
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -67,6 +74,12 @@ const Login = () => {
         <Button type="submit">Sign in with Email</Button>
       </form>
       <Button onClick={handleLoginGoogle}>Sign in with Google</Button>
+      <Modal
+        isOpen={isModalOpen}
+        title="Authentication"
+        message={modalMessage}
+        onClose={handleCloseModal}
+      />
     </>
   );
 };
