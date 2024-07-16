@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   build: {
-    sourcemap: true,
+    sourcemap: false,
   },
   plugins: [react()],
   define: {
