@@ -64,20 +64,30 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { ModeToggle } from './ModeToggle';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useSupabaseAuth } from './AuthContext';
 import { supabase } from '../../supabaseClient';
+import Modal from './ui/Modal';
 
 const Navbar = () => {
   const { session, setSession } = useSupabaseAuth();
   const navigate = useNavigate();
+  const [modalMessage, setModalMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setSession(null);
+    setModalMessage('Successfully logged out');
+    setIsModalOpen(true);
     navigate('/');
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -122,6 +132,12 @@ const Navbar = () => {
       <div className="mr-8">
         <ModeToggle />
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        title="Authentication"
+        message={modalMessage}
+        onClose={handleCloseModal}
+      />
     </nav>
   );
 };
