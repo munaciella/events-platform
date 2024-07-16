@@ -11,10 +11,11 @@ import { Footer } from './components/Footer';
 import EventPage from './components/EventPage';
 import LogIn from './components/LogIn';
 import { useSupabaseAuth } from './components/AuthContext';
+import Confirmation from './components/ConfirmationPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { session } = useSupabaseAuth();
+  useSupabaseAuth();
 
   return (
     <Router>
@@ -38,6 +39,7 @@ function App() {
               element={<LogIn setIsLoggedIn={setIsLoggedIn} />}
             />
             <Route path="/event/:event_id" element={<EventPage />} />
+            <Route path="/confirmation/:event_id/:registration_id" element={<Confirmation />} />
           </Routes>
         </ThemeProvider>
         <Footer />
