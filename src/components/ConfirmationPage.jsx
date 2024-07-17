@@ -98,12 +98,14 @@ const Confirmation = () => {
             >
               Show Map
             </Button>
+            {event.price > 0 || (registration.payment_amount > 0 && (
             <Button
                 className="px-4 py-2 dark:bg-foreground-dark"
                 onClick={() => navigate('/payment')}
               >
                 Donate for Event
               </Button>
+              ))}
             </div>
           </div>
         </div>

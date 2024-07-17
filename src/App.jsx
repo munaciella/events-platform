@@ -12,6 +12,7 @@ import EventPage from './components/EventPage';
 import LogIn from './components/LogIn';
 import { useSupabaseAuth } from './components/AuthContext';
 import Confirmation from './components/ConfirmationPage';
+import PaymentPage from './components/PaymentPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,6 +41,7 @@ function App() {
             />
             <Route path="/event/:event_id" element={<EventPage />} />
             <Route path="/confirmation/:event_id/:registration_id" element={<Confirmation />} />
+            <Route path="/payment/:event_id/:registration_id" element={<PaymentPage />} />
           </Routes>
         </ThemeProvider>
         <Footer />
