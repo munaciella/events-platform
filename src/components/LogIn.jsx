@@ -11,7 +11,7 @@ import Modal from './ui/Modal';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setSession } = useSupabaseAuth();
+  const { setSession, getStoredIntendedURL, clearStoredIntendedURL } = useSupabaseAuth();
   const navigate = useNavigate();
   const [modalMessage, setModalMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +24,13 @@ const Login = () => {
           setModalMessage('Successfully logged in');
           setIsModalOpen(true);
           setTimeout(() => {
+            const intendedURL = getStoredIntendedURL();
+            if (intendedURL) {
+              clearStoredIntendedURL();
+              navigate(intendedURL);
+            } else {
             navigate('/');
+            }
           }, 2000);
         } else if (event === 'SIGNED_OUT') {
           setModalMessage('Successfully logged out');
@@ -36,7 +42,7 @@ const Login = () => {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [setSession, navigate]);
+  }, [setSession, navigate, getStoredIntendedURL, clearStoredIntendedURL]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -53,7 +59,13 @@ const Login = () => {
       setModalMessage('Successfully logged in');
       setIsModalOpen(true);
       setTimeout(() => {
-        navigate('/');
+        const intendedURL = getStoredIntendedURL();
+        if (intendedURL) {
+          clearStoredIntendedURL();
+          navigate(intendedURL);
+        } else {
+          navigate('/');
+        }
       }, 2000);
     }
   };
