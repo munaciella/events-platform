@@ -12,7 +12,7 @@ const EventPage = () => {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { session, userDetails } = useSupabaseAuth();
+  const { session, userDetails, storeIntendedURL } = useSupabaseAuth();
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -42,6 +42,7 @@ const EventPage = () => {
   const handleRegisterClick = async () => {
     
     if (!session) {
+        storeIntendedURL(window.location.pathname);
       navigate('/login');
       return;
     }
@@ -49,7 +50,19 @@ const EventPage = () => {
     const user = userDetails;
 
     if (event.price > 0) {
-      navigate('/payment');
+      const { data, error } = await supabase
+        .from('registrations')
+        .insert({ event_id: event.event_id, user_id: user.user_id })
+        .select()
+        .single();
+      
+      if (error) {
+        console.error('Error creating registration:', error.message);
+        setError('Failed to create registration. Please try again later.');
+        return;
+      }
+      
+      navigate(`/payment/${event_id}/${data.registration_id}`);
     } else if (event.price === 0 && event.pay_as_you_like === true) {
       try {
         const { data, error } = await supabase
