@@ -8,17 +8,28 @@ const AuthContext = createContext();
 export function SupabaseAuthProvider({ children }) {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState({ user_id: null, user_uuid: null, name: null, email: null, role: null, created_at: null });
+  const [userDetails, setUserDetails] = useState({
+    user_id: null,
+    user_uuid: null,
+    name: null,
+    email: null,
+    role: null,
+    created_at: null,
+  });
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       updateSession(session);
     };
 
     checkSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       updateSession(session);
     });
 
@@ -63,7 +74,17 @@ export function SupabaseAuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ session, setSession, loading, userDetails, storeIntendedURL, getStoredIntendedURL, clearStoredIntendedURL }}>
+    <AuthContext.Provider
+      value={{
+        session,
+        setSession,
+        loading,
+        userDetails,
+        storeIntendedURL,
+        getStoredIntendedURL,
+        clearStoredIntendedURL,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
