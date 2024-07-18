@@ -14,6 +14,7 @@ const Confirmation = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [registration, setRegistration] = useState(null);
+  const [showMap, setShowMap] = useState(false);
 
   useEffect(() => {
     const fetchEventAndRegistration = async () => {
@@ -56,9 +57,16 @@ const Confirmation = () => {
     return format(new Date(dateString), 'MMMM d, yyyy h:mm a');
   };
 
+  const getMapUrl = (locationPoint) => {
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    const [latitude, longitude] = locationPoint.split(',').map(coord => coord.trim());
+    return `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${latitude},${longitude}&zoom=15`;
+  };
+
   return (
-    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-6">
+    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-10">
       <h1 className="text-3xl font-bold mb-6">Event Confirmation</h1>
+      <span className="text-2xl font-bold mb-2">You are going to</span>
 
       {loading && <SkeletonCard />}
       {error && <p className="text-red-500">{error}</p>}
@@ -93,20 +101,30 @@ const Confirmation = () => {
             </Button>
             <Button
               className="px-4 py-2 dark:bg-foreground-dark"
-              onClick={() => {
-              }}
+              onClick={() => setShowMap(!showMap)}
             >
-              Show Map
+            {showMap ? 'Hide Map' : 'Show Map'}
             </Button>
-            {event.price > 0 || (registration.payment_amount > 0 && (
+            {(event.price === 0) && (
             <Button
                 className="px-4 py-2 dark:bg-foreground-dark"
-                onClick={() => navigate('/payment')}
+                onClick={() => navigate(`/payment/${event_id}/${registration.registration_id}`
+                )
+                }
               >
                 Donate for Event
               </Button>
-              ))}
+            )}
             </div>
+            {showMap && (
+                <iframe
+                width="100%"
+                height="400"
+                style={{ border: 0, marginTop: '1rem' }}
+                src={getMapUrl(event.location_point)}
+                allowFullScreen
+              ></iframe>
+            )}
           </div>
         </div>
       )}
