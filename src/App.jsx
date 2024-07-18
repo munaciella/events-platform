@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className="flex flex-col min-h-screen">
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
           <div className="hidden md:block">
             <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -31,6 +31,7 @@ function App() {
               setIsLoggedIn={setIsLoggedIn}
             />
           </div>
+          <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create-event" element={<CreateEvent />} />
@@ -40,9 +41,16 @@ function App() {
               element={<LogIn setIsLoggedIn={setIsLoggedIn} />}
             />
             <Route path="/event/:event_id" element={<EventPage />} />
-            <Route path="/confirmation/:event_id/:registration_id" element={<Confirmation />} />
-            <Route path="/payment/:event_id/:registration_id" element={<PaymentPage />} />
+            <Route
+              path="/confirmation/:event_id/:registration_id"
+              element={<Confirmation />}
+            />
+            <Route
+              path="/payment/:event_id/:registration_id"
+              element={<PaymentPage />}
+            />
           </Routes>
+          </main>
         </ThemeProvider>
         <Footer />
       </div>
