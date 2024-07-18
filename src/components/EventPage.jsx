@@ -28,7 +28,7 @@ const EventPage = () => {
       } else {
         setEvent(myEvent);
         setError(null);
-    }
+      }
       setLoading(false);
     };
 
@@ -40,9 +40,8 @@ const EventPage = () => {
   };
 
   const handleRegisterClick = async () => {
-    
     if (!session) {
-        storeIntendedURL(window.location.pathname);
+      storeIntendedURL(window.location.pathname);
       navigate('/login');
       return;
     }
@@ -55,13 +54,13 @@ const EventPage = () => {
         .insert({ event_id: event.event_id, user_id: user.user_id })
         .select()
         .single();
-      
+
       if (error) {
         console.error('Error creating registration:', error.message);
         setError('Failed to create registration. Please try again later.');
         return;
       }
-      
+
       navigate(`/payment/${event_id}/${data.registration_id}`);
     } else if (event.price === 0 && event.pay_as_you_like === true) {
       try {
@@ -84,7 +83,7 @@ const EventPage = () => {
   };
 
   return (
-    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-6">
+    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-12">
       <h1 className="text-3xl font-bold mb-6">Event Details</h1>
 
       {loading && <SkeletonCard />}
