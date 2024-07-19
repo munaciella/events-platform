@@ -83,7 +83,7 @@ const EventPage = () => {
   };
 
   return (
-    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-8">
+    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-20">
       <h1 className="text-3xl font-bold mb-6 mt-14">Event Details</h1>
 
       {loading && <SkeletonCard />}
