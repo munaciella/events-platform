@@ -64,8 +64,9 @@ const Confirmation = () => {
   };
 
   return (
-    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-10">
-      <h1 className="text-3xl font-bold mb-6">Event Confirmation</h1>
+    <>
+    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-8">
+      <h1 className="text-3xl font-bold mb-6 mt-14">Event Confirmation</h1>
       <span className="text-2xl font-bold mb-2">You are going to</span>
 
       {loading && <SkeletonCard />}
@@ -129,6 +130,7 @@ const Confirmation = () => {
         </div>
       )}
     </section>
+    </>
   );
 };
 

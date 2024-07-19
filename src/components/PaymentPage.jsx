@@ -384,8 +384,8 @@ const PaymentPage = () => {
   };
 
   return (
-    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-6 dark:bg-background">
-      <h1 className="text-3xl font-bold mb-6 mt-10">Event Payment</h1>
+    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-8 dark:bg-background">
+      <h1 className="text-3xl font-bold mb-6 mt-14">Event Payment</h1>
 
       {loading && <SkeletonCard />}
       {error && <p className="text-red-500">{error}</p>}
