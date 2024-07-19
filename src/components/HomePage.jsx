@@ -36,8 +36,8 @@ const Home = () => {
   };
 
   return (
-    <section className="flex flex-col items-center p-4">
-      <h1 className="text-3xl font-bold mb-6">Hero Section Here</h1>
+    <section className="flex flex-col items-center p-4 mt-8">
+      <h1 className="text-3xl font-bold mb-6 mt-14">Hero Section Here</h1>
 
       {loading && (
         <div className="grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-6">
