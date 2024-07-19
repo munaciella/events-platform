@@ -384,55 +384,55 @@ const PaymentPage = () => {
   };
 
   return (
-    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto">
+    <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-6 dark:bg-background">
       <h1 className="text-3xl font-bold mb-6 mt-10">Event Payment</h1>
 
       {loading && <SkeletonCard />}
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && event && (
-        <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8 dark:bg-gray-800">
+        <div className="w-full bg-card dark:bg-card rounded-lg overflow-hidden shadow-lg mt-8 border border-border dark:border-border dark:bg-background-dark">
           <div className="flex flex-col items-center p-4">
             <h2 className="text-2xl font-semibold mb-2">{event.title}</h2>
             <p className="text-lg mb-2">Price: £{event.price}</p>
             <form onSubmit={handleSubmit} className="w-full">
               <div className="mb-4">
-                <label htmlFor="amount" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="amount" className="block text-sm font-medium">
                   Donation Amount
                 </label>
                 <Input
                   type="number"
                   id="amount"
-                  className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-900 dark:text-white"
+                  className="w-full p-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="fullName" className="block text-sm font-medium">
                   Full Name
                 </label>
                 <Input
                   type="text"
                   id="fullName"
-                  className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-900 dark:text-white"
+                  className="w-full p-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="address" className="block text-sm font-medium">
                   Address
                 </label>
                 <Input
                   type="text"
                   id="address"
-                  className="w-full p-2 border border-gray-300 rounded-md dark:bg-gray-900 dark:text-white"
+                  className="w-full p-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
               </div>
-              <div className="w-full p-2 border border-gray-300 rounded-md mb-4 dark:bg-gray-900">
+              <div className="w-full p-2 border border-gray-300 rounded-lg mb-4 dark:bg-gray-900">
                 <CardElement className="dark:text-white dark:bg-white" />
               </div>
               <Button
