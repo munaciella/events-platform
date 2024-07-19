@@ -36,7 +36,7 @@ const Home = () => {
   };
 
   return (
-    <section className="flex flex-col items-center p-4 mt-8">
+    <section className="flex flex-col items-center p-4 mt-20">
       <h1 className="text-3xl font-bold mb-6 mt-14">Hero Section Here</h1>
 
       {loading && (
