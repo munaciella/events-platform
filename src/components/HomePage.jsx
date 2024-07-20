@@ -55,13 +55,13 @@ const Home = () => {
           data.map((item) => (
             <div
               key={item.id}
-              className="w-full rounded-lg overflow-hidden shadow-lg mt-8 cursor-pointer"
+              className="w-full rounded-lg overflow-hidden shadow-lg mt-8 p-2 cursor-pointer border dark:bg-background-dark dark:text-foreground-dark hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-200"
               onClick={() => handleEventClick(item.event_id)}
             >
               <img
                 src={item.image_url}
                 alt={item.title}
-                className="w-full object-cover h-96"
+                className="w-full object-cover h-96 rounded-lg"
               />
               <div className="flex flex-col items-center p-4">
                 <h2 className="text-2xl font-semibold mb-2">{item.title}</h2>
@@ -70,7 +70,9 @@ const Home = () => {
                 <p className="text-sm text-muted-foreground mb-2">
                   {formatDate(item.start_time)}
                 </p>
-                  <p className="text-sm text-muted-foreground">£{item.price}</p>
+                <p className="text-lg font-bold text-primary dark:text-primary-dark">
+                      £ {item.price}
+                    </p>
               </div>
             </div>
           ))}

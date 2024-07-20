@@ -13,6 +13,7 @@ import LogIn from './components/LogIn';
 import { useSupabaseAuth } from './components/AuthContext';
 import Confirmation from './components/ConfirmationPage';
 import PaymentPage from './components/PaymentPage';
+import SearchResults from './components/SearchResults';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,6 +50,7 @@ function App() {
               path="/payment/:event_id/:registration_id"
               element={<PaymentPage />}
             />
+            <Route path="/search-results" element={<SearchResults/>} />
           </Routes>
           </main>
         </ThemeProvider>
