@@ -111,7 +111,7 @@ const Login = () => {
 
   return (
     <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-20 dark:bg-background">
-    <h1 className="text-3xl font-bold mb-6 mt-14 text-center">Login or Signup to EventSphere</h1>
+    <h1 className="text-3xl font-bold mb-6 mt-14 text-center">Login to EventSphere</h1>
 
     {loading && <SkeletonCard />}
       {error && <p className="text-red-500">{error}</p>}
