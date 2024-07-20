@@ -90,12 +90,14 @@ const EventPage = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && event && (
-        <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8">
+        <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8 border">
+        <div className='p-2'>
           <img
             src={event.image_url}
             alt={event.title}
-            className="w-full object-cover h-96"
+            className="w-full object-cover h-96 rounded-lg"
           />
+          </div>
           <div className="flex flex-col items-center p-4">
             <h2 className="text-2xl font-semibold mb-2">{event.title}</h2>
             <p className="text-lg mb-2">{event.description}</p>
@@ -105,6 +107,9 @@ const EventPage = () => {
             </p>
             <p className="text-sm text-muted-foreground mb-2">
               {formatDate(event.end_time)}
+            </p>
+            <p className="text-lg font-bold text-primary dark:text-primary-dark">
+              £ {event.price}
             </p>
             <Button
               className="px-4 py-2 dark:bg-foreground-dark"
