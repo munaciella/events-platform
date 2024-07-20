@@ -73,11 +73,11 @@ const Confirmation = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && event && registration && (
-        <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8">
+        <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8 p-2">
           <img
             src={event.image_url}
             alt={event.title}
-            className="w-full object-cover h-96"
+            className="w-full object-cover h-96 rounded-lg"
           />
           <div className="flex flex-col items-center p-4">
             <h2 className="text-2xl font-semibold mb-2">{event.title}</h2>
