@@ -39,7 +39,7 @@ const SearchResults = () => {
         <ul className="w-full space-y-4">
           {searchResults.map((event) => (
             <li
-              key={event.id}
+              key={event.event_id}
               className="cursor-pointer"
               onClick={() => handleEventClick(event.event_id)}
             >

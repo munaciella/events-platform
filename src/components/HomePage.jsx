@@ -54,7 +54,7 @@ const Home = () => {
           !error &&
           data.map((item) => (
             <div
-              key={item.id}
+              key={item.event_id}
               className="w-full rounded-lg overflow-hidden shadow-lg mt-8 p-2 cursor-pointer border dark:bg-background-dark dark:text-foreground-dark hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-200"
               onClick={() => handleEventClick(item.event_id)}
             >
