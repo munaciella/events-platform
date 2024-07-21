@@ -42,11 +42,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, process.cwd());
 
   return {
     server: {
-      port: env.VITE_PORT
+      port: env.VITE_PORT,
     },
     plugins: [
       vercel(),
@@ -61,9 +61,8 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      'process.env': {
-        VITE_GOOGLE_MAPS_API_KEY: JSON.stringify(env.VITE_GOOGLE_MAPS_API_KEY),
-      },
+      'import.meta.env.VITE_GOOGLE_MAPS_API_KEY': JSON.stringify(env.VITE_GOOGLE_MAPS_API_KEY),
+      'process.env': {},
     },
   };
 });
