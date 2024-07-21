@@ -73,7 +73,7 @@ const Confirmation = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && event && registration && (
-        <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8 p-2">
+        <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8 p-2 border border-border dark:border-border dark:bg-background-dark">
           <img
             src={event.image_url}
             alt={event.title}
@@ -92,7 +92,7 @@ const Confirmation = () => {
             <p className="text-lg font-semibold mb-4">
               Registration ID: {registration.registration_id}
             </p>
-            <div className="flex space-x-4">
+            <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-4">
             <Button
               className="px-4 py-2 dark:bg-foreground-dark"
               onClick={() => {
