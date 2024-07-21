@@ -46,7 +46,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     server: {
-      port: env.VITE_PORT ? parseInt(env.VITE_PORT, 10) : 3000,
+      port: env.VITE_PORT
     },
     plugins: [vercel(), react()],
     build: {
