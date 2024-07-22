@@ -129,7 +129,7 @@ const Navbar = () => {
           </Button>
         )}
       </div>
-      <div className="mr-8 md:mr-0">
+      <div className="mr-8 md:mr-2">
         <ModeToggle />
       </div>
 
