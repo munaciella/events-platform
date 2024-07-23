@@ -426,11 +426,12 @@ const Confirmation = () => {
     }
   };
 
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
   const login = useGoogleLogin({
     onSuccess: handleAddToCalendar,
     onError: (error) => console.error('Login Error:', error),
     scope: 'https://www.googleapis.com/auth/calendar.events',
-    redirectUri: `${window.location.origin}/confirmation/${event_id}/${registration_id}`
+    redirectUri: `${supabaseUrl}/auth/v1/callback`
   });
 
   return (
