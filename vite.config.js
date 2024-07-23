@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
     plugins: [vercel(), react()],
     build: {
       sourcemap: false,
+      outDir: 'dist'
     },
     resolve: {
       alias: {
