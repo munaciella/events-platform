@@ -431,6 +431,7 @@ const Confirmation = () => {
     onSuccess: handleAddToCalendar,
     onError: (error) => console.error('Login Error:', error),
     scope: 'https://www.googleapis.com/auth/calendar.events',
+    clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
     redirectUri: `${supabaseUrl}/auth/v1/callback`
   });
 
