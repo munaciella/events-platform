@@ -3,6 +3,7 @@ import { supabase } from '../../supabaseClient';
 import { format } from 'date-fns';
 import { SkeletonCard } from './ui/SkeletonCard';
 import { useNavigate } from 'react-router-dom';
+import HeroSection from './HeroSection';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -37,8 +38,8 @@ const Home = () => {
 
   return (
     <section className="flex flex-col items-center p-4 mt-20">
-      <h1 className="text-3xl font-bold mb-6 mt-14">Hero Section Here</h1>
-
+      <HeroSection />
+      
       {loading && (
         <div className="grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-6">
           {Array.from({ length: 6 }).map((_, index) => (
@@ -49,7 +50,7 @@ const Home = () => {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      <div className="grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-6">
+      <div className="grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-16">
         {!loading &&
           !error &&
           data.map((item) => (
