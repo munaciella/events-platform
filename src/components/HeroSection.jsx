@@ -9,9 +9,9 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between mt-16 md:mt-24 px-4 md:px-24">
+    <section className="flex flex-col md:flex-row items-center justify-between mt-8 md:mt-24 px-4 md:px-24">
       <div className="w-full md:w-1/2 order-2 md:order-1">
-        <div className="flex flex-col justify-center text-left dark:text-white">
+        <div className="flex flex-col justify-center text-left dark:text-white -mt-5">
           <h1 className="text-3xl md:text-5xl font-bold mb-4">Discover Events Near You</h1>
           <p className="text-lg md:text-2xl mb-6">Join like-minded people and explore events happening around you.</p>
           <Button onClick={handleGetStarted} className="w-40 py-2 text-lg bg-primary text-primary-foreground rounded-lg hover:bg-primary/90">
