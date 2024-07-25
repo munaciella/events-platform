@@ -8,7 +8,8 @@ import { supabase } from '../../supabaseClient';
 import { useSupabaseAuth } from './AuthContext';
 
 const CreateEvent = () => {
-  const { session, setSession, userDetails, setUserDetails } = useSupabaseAuth();
+  const { session, setSession, userDetails, setUserDetails } =
+    useSupabaseAuth();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -30,7 +31,7 @@ const CreateEvent = () => {
       if (session && session.user) {
         const { data, error } = await supabase
           .from('users')
-          .select('role, user_id') 
+          .select('role, user_id')
           .eq('user_uuid', session.user.id)
           .single();
 
@@ -58,7 +59,16 @@ const CreateEvent = () => {
   }, [session, userDetails, setUserDetails, setSession]);
 
   const validateFields = () => {
-    if (!title || !description || !location || !startTime || !endTime || !city || !imageUrl || !locationPoint) {
+    if (
+      !title ||
+      !description ||
+      !location ||
+      !startTime ||
+      !endTime ||
+      !city ||
+      !imageUrl ||
+      !locationPoint
+    ) {
       setModalMessage('All fields must be filled.');
       setIsModalOpen(true);
       return false;
@@ -127,14 +137,18 @@ const CreateEvent = () => {
   if (!isUserBusiness) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-center text-red-500 text-xl">Access Denied. Only business users can create events.</p>
+        <p className="text-center text-red-500 text-xl">
+          Access Denied. Only business users can create events.
+        </p>
       </div>
     );
   }
 
   return (
     <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-20 dark:bg-background">
-      <h1 className="text-3xl font-bold mb-6 mt-14 text-center">Create Event</h1>
+      <h1 className="text-3xl font-bold mb-6 mt-14 text-center">
+        Create Event
+      </h1>
       <div className="bg-card dark:bg-card rounded-lg shadow-md p-8 mt-8 w-full max-w-md border border-border dark:border-border">
         <form onSubmit={handleCreateEvent} className="space-y-4 w-full">
           {loading ? (
@@ -192,7 +206,9 @@ const CreateEvent = () => {
                     payAsYouLike ? 'bg-orange-500' : ''
                   }`}
                 />
-                <label className="text-card-foreground dark:text-card-foreground">Pay as you like</label>
+                <label className="text-card-foreground dark:text-card-foreground">
+                  Pay as you like
+                </label>
               </div>
               <Input
                 type="text"
