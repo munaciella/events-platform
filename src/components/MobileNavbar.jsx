@@ -14,7 +14,7 @@ const MobileNavbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [currentLocation, setCurrentLocation] = useState('Manchester, UK');
-  const { session, setSession } = useSupabaseAuth();
+  const { session, setSession, userDetails } = useSupabaseAuth();
   const [modalMessage, setModalMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -124,6 +124,7 @@ const MobileNavbar = () => {
                   />
                 </Button>
               </div>
+              {session && (session.user.role === 'business' || userDetails.role === 'business') && (
               <Link
                 to="/create-event"
                 className="hover:text-primary"
@@ -131,6 +132,7 @@ const MobileNavbar = () => {
               >
                 Create Event
               </Link>
+              )}
               {!session ? (
                 <>
                   <Link

@@ -13,6 +13,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [businessCode, setBusinessCode] = useState(''); 
   const [modalMessage, setModalMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -54,11 +55,15 @@ const SignUp = () => {
 
       const user = data.user;
 
+      const role = businessCode === '2024' ? 'business' : 'user'; 
+
       const { error: insertError } = await supabase.from('users').insert([
         {
           user_uuid: user.id,
           email,
           name,
+          role,
+          business_code: businessCode ? parseInt(businessCode, 10) : null
         },
       ]);
 
@@ -120,6 +125,13 @@ const SignUp = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+              />
+              <Input
+                type="text"
+                placeholder="Business Code (if any)"
+                value={businessCode}
+                onChange={(e) => setBusinessCode(e.target.value)}
                 className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
               />
               <Button
