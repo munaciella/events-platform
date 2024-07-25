@@ -49,7 +49,7 @@ const CreateEvent = () => {
           setIsUserBusiness(true);
         }
 
-        setUserDetails({ ...userDetails, userId: data.id });
+        setUserDetails({ ...userDetails, userId: data.user_id });
       }
       setLoading(false);
     };
@@ -57,21 +57,28 @@ const CreateEvent = () => {
     checkUserRole();
   }, [session, userDetails, setUserDetails, setSession]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Skeleton count={8} height={40} />
-      </div>
-    );
-  }
-
-  if (!isUserBusiness) {
-    return <p>Access Denied. Only business users can create events.</p>;
-  }
+  const validateFields = () => {
+    if (!title || !description || !location || !startTime || !endTime || !city || !imageUrl || !locationPoint) {
+      setModalMessage('All fields must be filled.');
+      setIsModalOpen(true);
+      return false;
+    }
+    if (!/^\d+(\.\d{1,2})?$/.test(price)) {
+      setModalMessage('Price must be a valid number (e.g., 0.00).');
+      setIsModalOpen(true);
+      return false;
+    }
+    return true;
+  };
 
   const handleCreateEvent = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!validateFields()) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const { error } = await supabase.from('events').insert([
@@ -108,6 +115,22 @@ const CreateEvent = () => {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Skeleton count={8} height={40} />
+      </div>
+    );
+  }
+
+  if (!isUserBusiness) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-center text-red-500 text-xl">Access Denied. Only business users can create events.</p>
+      </div>
+    );
+  }
 
   return (
     <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-20 dark:bg-background">
