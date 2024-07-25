@@ -15,6 +15,7 @@ export function SupabaseAuthProvider({ children }) {
     email: null,
     role: null,
     created_at: null,
+    business_code: null
   });
 
   useEffect(() => {
@@ -80,6 +81,7 @@ export function SupabaseAuthProvider({ children }) {
         setSession,
         loading,
         userDetails,
+        setUserDetails,
         storeIntendedURL,
         getStoredIntendedURL,
         clearStoredIntendedURL,

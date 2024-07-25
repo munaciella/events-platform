@@ -11,7 +11,7 @@ import Modal from './ui/Modal';
 import { FiSearch } from 'react-icons/fi';
 
 const Navbar = () => {
-  const { session, setSession } = useSupabaseAuth();
+  const { session, setSession, userDetails } = useSupabaseAuth();
   const navigate = useNavigate();
   const [modalMessage, setModalMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -111,9 +111,11 @@ const Navbar = () => {
       </div>
 
       <div className="flex space-x-3 items-center sm:space-x-1 mr-10 sm:mr-4 flex-shrink-0">
+      {session && (session.user.role === 'business' || userDetails.role === 'business') && (
         <Link to="/create-event" className="hover:text-primary">
           Create Event
         </Link>
+      )}
         {!session ? (
           <>
             <Link to="/signup" className="hover:text-primary">
