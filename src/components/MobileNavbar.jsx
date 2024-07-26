@@ -83,6 +83,11 @@ const MobileNavbar = () => {
     }
   };
 
+  const handleLogoClick = () => {
+    navigate('/');
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       <nav className="fixed top-0 w-full shadow-sm py-4 px-6 flex items-center justify-between md:hidden z-50 bg-gradient-to-b from-transparent via-gray-100 to-gray-200 dark:from-transparent dark:via-gray-800 dark:to-gray-900">
@@ -90,13 +95,12 @@ const MobileNavbar = () => {
           <Button onClick={toggleMenu} className="mr-3">
             {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </Button>
-          <Link to="/" className="mx-auto">
-            <img
+          <div onClick={handleLogoClick} className="cursor-pointer mx-auto">            <img
               src="/assets/Eventsphere_red_nobg.png"
               alt="EventSphere logo"
               className="h-16 w-auto"
             />
-          </Link>
+          </div>
           <ModeToggle />
         </div>
       </nav>
