@@ -11,12 +11,18 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html",
+      "dest": "/",
       "status": 200,
       "headers": {
         "Cross-Origin-Opener-Policy": "same-origin",
         "Cross-Origin-Embedder-Policy": "require-corp"
       }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
