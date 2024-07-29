@@ -160,15 +160,15 @@ const CreateEvent = () => {
     );
   }
 
-  if (!isUserBusiness) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-center text-red-500 text-xl">
-          Access Denied. Only business users can create events.
-        </p>
-      </div>
-    );
-  }
+  // if (!isUserBusiness) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <p className="text-center text-red-500 text-xl">
+  //         Access Denied. Only business users can create events.
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-20 dark:bg-background">
