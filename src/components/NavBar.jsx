@@ -70,7 +70,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-transparent via-gray-100 to-gray-200 dark:from-transparent dark:via-gray-800 dark:to-gray-900 shadow-sm py-4 px-6 flex items-center justify-between flex-wrap">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-l from-transparent via-gray-100 to-gray-200 dark:from-transparent dark:via-gray-800 dark:to-gray-900 shadow-sm py-4 px-6 flex items-center justify-between flex-wrap">
       <div className="text-2xl font-bold flex-shrink-0">
         <Link to="/">
           <img
