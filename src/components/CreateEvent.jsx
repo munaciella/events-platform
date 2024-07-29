@@ -8,8 +8,7 @@ import { supabase } from '../../supabaseClient';
 import { useSupabaseAuth } from './AuthContext';
 
 const CreateEvent = () => {
-  const { session, setSession, userDetails, setUserDetails } =
-    useSupabaseAuth();
+  const { session, setSession, userDetails, setUserDetails } = useSupabaseAuth();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -59,26 +58,53 @@ const CreateEvent = () => {
   }, [session, userDetails, setUserDetails, setSession]);
 
   const validateFields = () => {
-    if (
-      !title ||
-      !description ||
-      !location ||
-      !startTime ||
-      !endTime ||
-      !city ||
-      !imageUrl ||
-      !locationPoint
-    ) {
+    const urlPattern = new RegExp('https?://.+');
+    const pricePattern = /^\d+(\.\d{1,2})?$/;
+    const coordinatePattern = /^-?\d+(\.\d+)?,\s*-?\d+(\.\d+)?$/;
+
+    if (!title || !description || !location || !startTime || !endTime || !city || !imageUrl || !locationPoint) {
       setModalMessage('All fields must be filled.');
       setIsModalOpen(true);
       return false;
     }
-    if (!/^\d+(\.\d{1,2})?$/.test(price)) {
-      setModalMessage('Price must be a valid number (e.g., 0.00).');
+    if (!pricePattern.test(price)) {
+      setModalMessage('Price must be a valid number in format £0.00.');
+      setIsModalOpen(true);
+      return false;
+    }
+    if (price === "0.00" && !payAsYouLike) {
+      setModalMessage('Please select "Pay as you like" if price is 0.00.');
+      setIsModalOpen(true);
+      return false;
+    }
+    if (!urlPattern.test(imageUrl)) {
+      setModalMessage('Image URL must be a valid URL.');
+      setIsModalOpen(true);
+      return false;
+    }
+    if (!coordinatePattern.test(locationPoint)) {
+      setModalMessage('Location Point must be valid coordinates.');
       setIsModalOpen(true);
       return false;
     }
     return true;
+  };
+
+  const handleBlur = (setter, value) => {
+    // Ensures value starts with uppercase and contains only allowed characters
+    setter(value.replace(/[^a-zA-Z0-9\s]/g, '').replace(/^(.)/, (c) => c.toUpperCase()));
+  };
+
+  const handleLocationBlur = (value) => {
+    setLocation(value.replace(/[^a-zA-Z\s,]/g, '').replace(/^(.)/, (c) => c.toUpperCase()));
+  };
+
+  const handleCityBlur = (value) => {
+    setCity(value.replace(/[^a-zA-Z\s]/g, '').replace(/^(.)/, (c) => c.toUpperCase()));
+  };
+
+  const handlePriceChange = (value) => {
+    setPrice(value.replace(/[^0-9.]/g, ''));
   };
 
   const handleCreateEvent = async (e) => {
@@ -151,94 +177,90 @@ const CreateEvent = () => {
       </h1>
       <div className="bg-card dark:bg-card rounded-lg shadow-md p-8 mt-8 w-full max-w-md border border-border dark:border-border">
         <form onSubmit={handleCreateEvent} className="space-y-4 w-full">
-          {loading ? (
-            <Skeleton count={8} height={40} />
-          ) : (
-            <>
-              <Input
-                type="text"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Input
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Input
-                type="text"
-                placeholder="Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Input
-                type="datetime-local"
-                placeholder="Start Time"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Input
-                type="datetime-local"
-                placeholder="End Time"
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Input
-                type="text"
-                placeholder="Price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <div className="flex items-center justify-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={payAsYouLike}
-                  onChange={() => setPayAsYouLike(!payAsYouLike)}
-                  className={`rounded border-gray-300 dark:border-gray-600 ${
-                    payAsYouLike ? 'bg-orange-500' : ''
-                  }`}
-                />
-                <label className="text-card-foreground dark:text-card-foreground">
-                  Pay as you like
-                </label>
-              </div>
-              <Input
-                type="text"
-                placeholder="Image URL"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Input
-                type="text"
-                placeholder="Location Point (Coordinates)"
-                value={locationPoint}
-                onChange={(e) => setLocationPoint(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Input
-                type="text"
-                placeholder="City"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
-              />
-              <Button
-                type="submit"
-                className="w-full py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 dark:bg-primary dark:text-primary-foreground"
-              >
-                Create Event
-              </Button>
-            </>
-          )}
+          <Input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onBlur={(e) => handleBlur(setTitle, e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Input
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            onBlur={(e) => handleBlur(setDescription, e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            onBlur={(e) => handleLocationBlur(e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Input
+            type="datetime-local"
+            placeholder="Start Time"
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Input
+            type="datetime-local"
+            placeholder="End Time"
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Input
+            type="text"
+            placeholder="Price"
+            value={price}
+            onChange={(e) => handlePriceChange(e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <div className="flex items-center justify-center space-x-2">
+            <input
+              type="checkbox"
+              checked={payAsYouLike}
+              onChange={() => setPayAsYouLike(!payAsYouLike)}
+              className={`rounded border-gray-300 dark:border-gray-600 ${payAsYouLike ? 'bg-orange-500' : ''}`}
+            />
+            <label className="text-card-foreground dark:text-card-foreground">
+              Pay as you like
+            </label>
+          </div>
+          <Input
+            type="text"
+            placeholder="Image URL"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Input
+            type="text"
+            placeholder="Location Point (Coordinates)"
+            value={locationPoint}
+            onChange={(e) => setLocationPoint(e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Input
+            type="text"
+            placeholder="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            onBlur={(e) => handleCityBlur(e.target.value)}
+            className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
+          />
+          <Button
+            type="submit"
+            className="w-full py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 dark:bg-primary dark:text-primary-foreground"
+          >
+            Create Event
+          </Button>
         </form>
       </div>
       <Modal
