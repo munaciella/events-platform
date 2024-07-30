@@ -15,8 +15,8 @@ const CreateEvent = () => {
   const [location, setLocation] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [price, setPrice] = useState('');
-  const [payAsYouLike, setPayAsYouLike] = useState(false);
+  const [price, setPrice] = useState('0.00'); 
+  const [payAsYouLike, setPayAsYouLike] = useState(true);
   const [imageUrl, setImageUrl] = useState('');
   const [locationPoint, setLocationPoint] = useState('');
   const [city, setCity] = useState('');
@@ -61,9 +61,20 @@ const CreateEvent = () => {
     const urlPattern = new RegExp('https?://.+');
     const pricePattern = /^\d+(\.\d{1,2})?$/;
     const coordinatePattern = /^-?\d+(\.\d+)?,\s*-?\d+(\.\d+)?$/;
+    const lettersOnlyPattern = /^[a-zA-Z\s]+$/;
 
     if (!title || !description || !location || !startTime || !endTime || !city || !imageUrl || !locationPoint) {
       setModalMessage('All fields must be filled.');
+      setIsModalOpen(true);
+      return false;
+    }
+    if (!lettersOnlyPattern.test(location) || !lettersOnlyPattern.test(city)) {
+      setModalMessage('Location and City must contain only letters.');
+      setIsModalOpen(true);
+      return false;
+    }
+    if (!/[a-zA-Z]/.test(title) || /^[0-9]+$/.test(title)) {
+      setModalMessage('Title must contain letters and cannot be only numbers.');
       setIsModalOpen(true);
       return false;
     }
@@ -90,21 +101,36 @@ const CreateEvent = () => {
     return true;
   };
 
-  const handleBlur = (setter, value) => {
-    // Ensures value starts with uppercase and contains only allowed characters
+  const handleBlur = (setter, value, pattern, fieldName) => {
+    if (!pattern.test(value)) {
+      setModalMessage(`${fieldName} is invalid.`);
+      setIsModalOpen(true);
+    }
     setter(value.replace(/[^a-zA-Z0-9\s]/g, '').replace(/^(.)/, (c) => c.toUpperCase()));
   };
 
   const handleLocationBlur = (value) => {
+    if (!/^[a-zA-Z\s,]+$/.test(value)) {
+      setModalMessage('Location must contain only letters.');
+      setIsModalOpen(true);
+    }
     setLocation(value.replace(/[^a-zA-Z\s,]/g, '').replace(/^(.)/, (c) => c.toUpperCase()));
   };
 
   const handleCityBlur = (value) => {
+    if (!/^[a-zA-Z\s]+$/.test(value)) {
+      setModalMessage('City must contain only letters.');
+      setIsModalOpen(true);
+    }
     setCity(value.replace(/[^a-zA-Z\s]/g, '').replace(/^(.)/, (c) => c.toUpperCase()));
   };
 
   const handlePriceChange = (value) => {
-    setPrice(value.replace(/[^0-9.]/g, ''));
+    const newValue = value.replace(/[^0-9.]/g, '');
+    setPrice(newValue);
+    if (newValue === "0.00") {
+      setPayAsYouLike(true);
+    }
   };
 
   const handleCreateEvent = async (e) => {
@@ -160,16 +186,6 @@ const CreateEvent = () => {
     );
   }
 
-  // if (!isUserBusiness) {
-  //   return (
-  //     <div className="flex justify-center items-center h-screen">
-  //       <p className="text-center text-red-500 text-xl">
-  //         Access Denied. Only business users can create events.
-  //       </p>
-  //     </div>
-  //   );
-  // }
-
   return (
     <section className="flex flex-col items-center p-4 max-w-3xl mx-auto bg-background mt-20 dark:bg-background">
       <h1 className="text-3xl font-bold mb-6 mt-14 text-center">
@@ -182,7 +198,7 @@ const CreateEvent = () => {
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            onBlur={(e) => handleBlur(setTitle, e.target.value)}
+            onBlur={(e) => handleBlur(setTitle, e.target.value, /[a-zA-Z]/, 'Title')}
             className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
           />
           <Input
@@ -190,7 +206,7 @@ const CreateEvent = () => {
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            onBlur={(e) => handleBlur(setDescription, e.target.value)}
+            onBlur={(e) => handleBlur(setDescription, e.target.value, /[a-zA-Z]/, 'Description')}
             className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
           />
           <Input
@@ -217,7 +233,7 @@ const CreateEvent = () => {
           />
           <Input
             type="text"
-            placeholder="Price"
+            placeholder="Price (£0.00)"
             value={price}
             onChange={(e) => handlePriceChange(e.target.value)}
             className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
@@ -235,14 +251,14 @@ const CreateEvent = () => {
           </div>
           <Input
             type="text"
-            placeholder="Image URL"
+            placeholder="Image URL (e.g. https://img.com/img.jpg)"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
           />
           <Input
             type="text"
-            placeholder="Location Point (Coordinates)"
+            placeholder="Location Coordinates (e.g., 37.7749, -122.4194)"
             value={locationPoint}
             onChange={(e) => setLocationPoint(e.target.value)}
             className="w-full px-4 py-2 border border-input rounded-lg bg-card dark:bg-input dark:border-border text-card-foreground"
@@ -274,3 +290,4 @@ const CreateEvent = () => {
 };
 
 export default CreateEvent;
+
