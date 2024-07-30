@@ -43,7 +43,7 @@ This command will install all dependencies listed in the `package.json` file, in
 
 Create a `.env` file in the root directory of the project and add the following environment variables. These are required for the application to function correctly:
 
-```env
+<!-- ```env
 VITE_SUPABASE_URL=https://vtvytqxwrnuiiofyetvl.supabase.co
 VITE_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ0dnl0cXh3cm51aWlvZnlldHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA1MzkyMTksImV4cCI6MjAzNjExNTIxOX0.X7mjioVOzmJKsxdbTtSTvArevFRhnC4a04cK_u9qWDI
 
@@ -52,7 +52,7 @@ VITE_STRIPE_PUBLISHABLE_KEY=pk_test_51PdbGORr09u8cBhFd9C6A3CNJFZsw6A3kb6kUH7HrVR
 VITE_GOOGLE_MAPS_API_KEY=AIzaSyCj7zFWVdhFi3t0GdF5kfd6wDENI-Rd7FQ
 
 VITE_GOOGLE_CLIENT_ID=369382567786-phvue04kfo53q22lqku1qab3q1r5a997.apps.googleusercontent.com
-```
+``` -->
 
 ### Installing dotenv
 
