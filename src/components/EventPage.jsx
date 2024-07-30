@@ -45,42 +45,85 @@ const EventPage = () => {
       navigate('/login');
       return;
     }
-
-    const user = userDetails;
-
-    if (event.price > 0) {
-      const { data, error } = await supabase
-        .from('registrations')
-        .insert({ event_id: event.event_id, user_id: user.user_id })
-        .select()
-        .single();
-
-      if (error) {
-        console.error('Error creating registration:', error.message);
-        setError('Failed to create registration. Please try again later.');
-        return;
-      }
-
-      navigate(`/payment/${event_id}/${data.registration_id}`);
-    } else if (event.price === 0 && event.pay_as_you_like === true) {
-      try {
+  
+    if (!userDetails) {
+      setError('User details are not available. Please try again.');
+      return;
+    }
+  
+    try {
+      const user = userDetails;
+      let registrationData;
+      if (event.price > 0) {
         const { data, error } = await supabase
           .from('registrations')
           .insert({ event_id: event.event_id, user_id: user.user_id })
           .select()
           .single();
-        if (error) {
-          console.error('Error registering for event:', error.message);
-          setError('Failed to register for event. Please try again later.');
-        } else {
-          navigate(`/confirmation/${event_id}/${data.registration_id}`);
-        }
-      } catch (error) {
-        console.error('Unexpected error:', error);
-        setError('Failed to register for event. Please try again later.');
+  
+        if (error) throw error;
+        registrationData = data;
+        navigate(`/payment/${event_id}/${registrationData.registration_id}`);
+      } else if (event.price === 0 && event.pay_as_you_like) {
+        const { data, error } = await supabase
+          .from('registrations')
+          .insert({ event_id: event.event_id, user_id: user.user_id })
+          .select()
+          .single();
+  
+        if (error) throw error;
+        registrationData = data;
+        navigate(`/confirmation/${event_id}/${registrationData.registration_id}`);
       }
+    } catch (error) {
+      console.error('Error registering for event:', error.message);
+      setError('Failed to register for event. Please try again later.');
     }
   };
+  
+
+  // const handleRegisterClick = async () => {
+  //   if (!session) {
+  //     storeIntendedURL(window.location.pathname);
+  //     navigate('/login');
+  //     return;
+  //   }
+
+  //   const user = userDetails;
+
+  //   if (event.price > 0) {
+  //     const { data, error } = await supabase
+  //       .from('registrations')
+  //       .insert({ event_id: event.event_id, user_id: user.user_id })
+  //       .select()
+  //       .single();
+
+  //     if (error) {
+  //       console.error('Error creating registration:', error.message);
+  //       setError('Failed to create registration. Please try again later.');
+  //       return;
+  //     }
+
+  //     navigate(`/payment/${event_id}/${data.registration_id}`);
+  //   } else if (event.price === 0 && event.pay_as_you_like === true) {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from('registrations')
+  //         .insert({ event_id: event.event_id, user_id: user.user_id })
+  //         .select()
+  //         .single();
+  //       if (error) {
+  //         console.error('Error registering for event:', error.message);
+  //         setError('Failed to register for event. Please try again later.');
+  //       } else {
+  //         navigate(`/confirmation/${event_id}/${data.registration_id}`);
+  //       }
+  //     } catch (error) {
+  //       console.error('Unexpected error:', error);
+  //       setError('Failed to register for event. Please try again later.');
+  //     }
+  //   }
+  // };
 
   return (
     <section className="flex flex-col items-center p-4 max-w-3xl mx-auto mt-20">
