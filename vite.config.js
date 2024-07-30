@@ -1,5 +1,4 @@
 import { defineConfig, loadEnv } from 'vite';
-import vercel from 'vite-plugin-vercel';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -14,10 +13,10 @@ export default defineConfig(({ mode }) => {
     server: {
       port: env.VITE_PORT || 5173,
     },
-    plugins: [vercel(), react()],
+    plugins: [react()],
     build: {
       sourcemap: false,
-      outDir: 'dist'
+      outDir: 'dist',
     },
     resolve: {
       alias: {
