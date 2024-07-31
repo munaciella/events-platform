@@ -8,5 +8,5 @@
     "allowJs": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "privacy-policy"]
 }

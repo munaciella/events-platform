@@ -8,6 +8,7 @@ import { SkeletonCard } from './ui/SkeletonCard';
 import { Button } from './ui/button';
 import { useGoogleLogin } from '@react-oauth/google';
 import Modal from './ui/Modal';
+import ErrorPage from './ErrorPage';
 
 const Confirmation = () => {
   const { event_id, registration_id } = useParams();
@@ -117,7 +118,7 @@ const Confirmation = () => {
       <span className="text-2xl font-bold mb-2">You are going to</span>
 
       {loading && <SkeletonCard />}
-      {error && <p className="text-red-500">{error}</p>}
+      {!loading && error && <ErrorPage message={error} />}
 
       {!loading && !error && event && registration && (
         <div className="w-full rounded-lg overflow-hidden shadow-lg mt-8 p-2 border border-border dark:border-border dark:bg-background-dark">
