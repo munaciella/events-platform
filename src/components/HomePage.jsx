@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { SkeletonCard } from './ui/SkeletonCard';
 import { useNavigate } from 'react-router-dom';
 import HeroSection from './HeroSection';
+import ErrorPage from './ErrorPage';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ const Home = () => {
       setLoading(true);
       let { data: myData, error } = await supabase.from('events').select('*');
       if (error) {
-        console.error('Error:', error);
+        console.error('Error fetching events:', error);
         setError('Failed to fetch data. Please try again later.');
       } else {
         setData(myData);
@@ -48,7 +49,7 @@ const Home = () => {
         </div>
       )}
 
-      {error && <p className="text-red-500">{error}</p>}
+      {!loading && error && <ErrorPage message={error} />}
 
       <div className="grid grid-cols-1 justify-items-center m-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-16 mt-6">
         {!loading &&

@@ -14,6 +14,7 @@ import { useSupabaseAuth } from './components/AuthContext';
 import Confirmation from './components/ConfirmationPage';
 import PaymentPage from './components/PaymentPage';
 import SearchResults from './components/SearchResults';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,15 @@ function App() {
               element={<PaymentPage />}
             />
             <Route path="/search-results" element={<SearchResults/>} />
+            <Route
+          path="*"
+          element={
+            <ErrorPage
+              title="404 Page Not Found"
+              message="Sorry, this page doesn't exist yet... 😢"
+            />
+          }
+        />
           </Routes>
           </main>
         </ThemeProvider>
