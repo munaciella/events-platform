@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Skeleton } from './ui/skeleton';
-import Modal from './ui/Modal';
-import { supabase } from '../../supabaseClient';
-import { useSupabaseAuth } from './AuthContext';
+import { supabase } from '../../../../supabaseClient';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import Modal from '@/components/ui/Modal';
+import { useSupabaseAuth } from '@/components/AuthContext';
+import { SkeletonCard } from '@/components/ui/SkeletonCard';
 
 const CreateEvent = () => {
   const { session, setSession, userDetails, setUserDetails } = useSupabaseAuth();
@@ -181,7 +181,7 @@ const CreateEvent = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Skeleton count={8} height={40} />
+        <SkeletonCard count={8} height={40} />
       </div>
     );
   }

@@ -2,13 +2,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../../../supabaseClient';
 import { format } from 'date-fns';
-import { SkeletonCard } from './ui/SkeletonCard';
-import { Button } from './ui/button';
+import { SkeletonCard } from '../../ui/SkeletonCard';
+import { Button } from '../../ui/button';
 import { useGoogleLogin } from '@react-oauth/google';
-import Modal from './ui/Modal';
-import ErrorPage from './ErrorPage';
+import Modal from '../../ui/Modal';
+import ErrorPage from '../error/ErrorPage';
 
 const Confirmation = () => {
   const { event_id, registration_id } = useParams();

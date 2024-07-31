@@ -2,12 +2,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import Modal from './ui/Modal';
-import { SkeletonCard } from './ui/SkeletonCard';
-import { supabase } from '../../supabaseClient';
-import { useSupabaseAuth } from './AuthContext';
+import { Input } from '@/components/ui/input';
+import { useSupabaseAuth } from '@/components/AuthContext';
+import Modal from '@/components/ui/Modal';
+import { Button } from '@/components/ui/button';
+import { supabase } from '../../../../supabaseClient.js';
+import { SkeletonCard } from '@/components/ui/SkeletonCard.jsx';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase } from '../../supabaseClient';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { Button } from './ui/button';
-import { SkeletonCard } from './ui/SkeletonCard';
-import { useSupabaseAuth } from './AuthContext';
-import { Input } from './ui/input';
-import Modal from './ui/Modal';
+import { supabase } from '../../../../supabaseClient';
+import { Button } from '@/components/ui/button';
+import { SkeletonCard } from '@/components/ui/SkeletonCard';
+import { useSupabaseAuth } from '@/components/AuthContext';
+import { Input } from '@/components/ui/input';
+import Modal from '@/components/ui/Modal';
 
 const PaymentPage = () => {
   const stripe = useStripe();

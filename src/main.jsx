@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
-import { SupabaseAuthProvider } from './components/AuthContext.jsx';
 import StripeProvider from './components/StripeProvider.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { SupabaseAuthProvider } from './components/AuthContext.jsx';
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 

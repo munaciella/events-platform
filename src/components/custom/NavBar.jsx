@@ -3,11 +3,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { ModeToggle } from './ModeToggle';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { useSupabaseAuth } from './AuthContext';
-import { supabase } from '../../supabaseClient';
-import Modal from './ui/Modal';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { useSupabaseAuth } from '../AuthContext';
+import { supabase } from '../../../supabaseClient';
+import Modal from '../ui/Modal';
 import { FiSearch } from 'react-icons/fi';
 
 const Navbar = () => {

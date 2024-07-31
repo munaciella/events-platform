@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { ModeToggle } from './ModeToggle';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { useSupabaseAuth } from './AuthContext';
-import { supabase } from '../../supabaseClient';
-import Modal from './ui/Modal';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import Modal from '../ui/Modal';
+import { useSupabaseAuth } from '../AuthContext';
+import { supabase } from '../../../supabaseClient';
 
 const MobileNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
