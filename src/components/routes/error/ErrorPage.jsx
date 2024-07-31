@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom';
-import { Button } from './ui/button'; 
-import { SkeletonCard } from './ui/SkeletonCard';
+import { Button } from '../../ui/button'; 
+import { SkeletonCard } from '../../ui/SkeletonCard';
 
 const ErrorPage = ({ title, message }) => {
   const navigate = useNavigate();

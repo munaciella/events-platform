@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../../../supabaseClient.js';
 import { format } from 'date-fns';
-import { SkeletonCard } from './ui/SkeletonCard';
 import { useNavigate } from 'react-router-dom';
-import HeroSection from './HeroSection';
-import ErrorPage from './ErrorPage';
+import ErrorPage from '../error/ErrorPage';
+import HeroSection from '@/components/custom/HeroSection';
+import { SkeletonCard } from '@/components/ui/SkeletonCard.jsx';
 
 const Home = () => {
   const [data, setData] = useState([]);

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { SkeletonCard } from './ui/SkeletonCard';
+import { SkeletonCard } from '@/components/ui/SkeletonCard';
 
 const SearchResults = () => {
   const location = useLocation();
