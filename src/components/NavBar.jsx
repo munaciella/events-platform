@@ -35,9 +35,7 @@ const Navbar = () => {
     if (!searchQuery) return;
 
     try {
-      console.log('Search Query:', searchQuery);
-      console.log('Current Location:', currentLocation);
-
+      
       const { data, error } = await supabase
         .from('events')
         .select('*')
@@ -49,7 +47,6 @@ const Navbar = () => {
         setModalMessage(`Error: ${error.message}`);
         setIsModalOpen(true);
       } else {
-        console.log('Search Results:', data);
         setSearchResults(data);
         
         if (data.length === 0) {

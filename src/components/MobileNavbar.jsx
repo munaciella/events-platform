@@ -52,7 +52,6 @@ const MobileNavbar = () => {
     if (!searchQuery.trim()) return;
 
     try {
-
       const { data, error } = await supabase
         .from('events')
         .select('*')
@@ -95,7 +94,9 @@ const MobileNavbar = () => {
           <Button onClick={toggleMenu} className="mr-3">
             {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </Button>
-          <div onClick={handleLogoClick} className="cursor-pointer mx-auto">            <img
+          <div onClick={handleLogoClick} className="cursor-pointer mx-auto">
+            {' '}
+            <img
               src="/assets/Eventsphere_red_nobg.png"
               alt="EventSphere logo"
               className="h-16 w-auto"
@@ -128,15 +129,17 @@ const MobileNavbar = () => {
                   />
                 </Button>
               </div>
-              {session && (session.user.role === 'business' || userDetails.role === 'business') && (
-              <Link
-                to="/create-event"
-                className="hover:text-primary"
-                onClick={toggleMenu}
-              >
-                Create Event
-              </Link>
-              )}
+              {session &&
+                (session.user.role === 'business' ||
+                  userDetails.role === 'business') && (
+                  <Link
+                    to="/create-event"
+                    className="hover:text-primary"
+                    onClick={toggleMenu}
+                  >
+                    Create Event
+                  </Link>
+                )}
               {!session ? (
                 <>
                   <Link

@@ -16,7 +16,7 @@ const Home = () => {
       setLoading(true);
       let { data: myData, error } = await supabase.from('events').select('*');
       if (error) {
-        console.log('Error:', error);
+        console.error('Error:', error);
         setError('Failed to fetch data. Please try again later.');
       } else {
         setData(myData);
