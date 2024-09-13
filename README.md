@@ -54,14 +54,6 @@ VITE_GOOGLE_MAPS_API_KEY=AIzaSyCj7zFWVdhFi3t0GdF5kfd6wDENI-Rd7FQ
 VITE_GOOGLE_CLIENT_ID=369382567786-phvue04kfo53q22lqku1qab3q1r5a997.apps.googleusercontent.com
 ```
 
-### Installing dotenv
-
-Ensure `dotenv` is installed to manage environment variables:
-
-```bash
-npm install dotenv
-```
-
 ## Running the Project
 
 To run the project locally, use the following commands:
